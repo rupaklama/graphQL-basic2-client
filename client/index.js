@@ -18,7 +18,19 @@ import SongDetail from './components/SongDetail';
 
 // creating new instance of 'apollo-client' & pass it into the <ApolloProvider>
 const client = new ApolloClient({
-  // pass in empty config object here to configure setup
+  // o is short for object
+  // this piece of config takes every single piece of data that is fetched by our Apollo client from backend
+  // and runs it through this function, whatever is returned from this function is used to identify
+  // that piece of data inside of the Apollo client/store
+  // So, what we are saying here is go and fetch every piece of data you need
+  // and use 'id' field of that record to identify that piece of data.
+  dataIdFromObject: o => o.id, // data catching system
+  // note - telling Apollo to use 'id' to identify this piece of data to keep track of it &
+  // tell React that when the data related with any particular 'id' is updated
+  // The reason for doing this is Apollo don't know that we want to use 'id' to keep track of the data.
+  // NOTE - This only works when all the IDs inside of our application are unique against each other
+  // NOTE - Doing this, we don't have to refetch/re-run query,
+  // DON'T HAVE TO MAKE ANOTHER QUERY REQUEST
 });
 
 const Root = () => {
